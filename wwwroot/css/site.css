@@ -1,0 +1,30 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 60px;
+}
+
+.img-topo {
+  max-width: 60%;
+}
+
+.img-main {
+  max-width: 75%;
+}
+
+.foto-conteudo {
+  max-width: 75%;
+}
