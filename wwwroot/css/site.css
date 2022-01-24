@@ -28,3 +28,7 @@ body {
 .foto-conteudo {
   max-width: 75%;
 }
+
+.tamanho-base {
+  width: 960px;
+}
