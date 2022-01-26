@@ -17,6 +17,10 @@ body {
   margin-bottom: 60px;
 }
 
+.container-fluid {
+  padding: 0;
+}
+
 .img-topo {
   max-width: 60%;
 }
@@ -30,5 +34,10 @@ body {
 }
 
 .tamanho-base {
-  width: 960px;
+  width: 1140px;
 }
+
+#carouselSlides .carousel-inner, #carouselSlides .carousel-item{
+  height: 50vh;
+}
+
