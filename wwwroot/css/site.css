@@ -41,3 +41,24 @@ body {
   height: 50vh;
 }
 
+.carousel-caption {
+  height: 30vh;
+}
+
+.carousel-caption h5 {
+  font-size: 35px;
+  font-weight: 900;
+}
+
+.carousel-caption p {
+  font-size: 18px;
+  font-weight: 900;
+}
+
+.figure-caption p {
+  font-weight: 400;
+}
+
+#cid {
+  font-weight: 700;
+}
