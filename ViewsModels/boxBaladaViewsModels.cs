@@ -5,19 +5,19 @@ namespace suaBaladaAqui.ViewsModels
 {
     public partial class boxBaladaViewsModels
     {
-        public boxBaladaViewsModels(string nome, DateTime data, string cidade, string local, string fleyr)
+        public boxBaladaViewsModels(string evento1, string dataEvento, string cidade, string localName, string imagem)
         {
-            this.nome = nome;
-            this.data = data;
-            this.cidade = cidade;
-            this.local = local;
-            this.fleyr = fleyr;
+            Evento1 = evento1;
+            DataEvento = dataEvento;
+            Cidade = cidade;
+            LocalName = localName;
+            Imagem = imagem;
         }
 
-        public string nome { get; set; } = null!;
-        public DateTime data { get; set; }
-        public string cidade { get; set; } = null!;
-        public string local { get; set; } = null!;
-        public string fleyr { get; set; } = null!;
+        public string Evento1 { get; set; } = null!;
+        public string DataEvento { get; set; }
+        public string Cidade { get; set; } = null!;
+        public string LocalName { get; set; } = null!;
+        public string Imagem { get; set; } = null!;
     }
 }

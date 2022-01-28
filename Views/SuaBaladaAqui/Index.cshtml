@@ -1,4 +1,4 @@
-﻿@model IEnumerable<suaBaladaAqui.Models.Evento>;
+﻿@model IEnumerable<suaBaladaAqui.ViewsModels.boxBaladaViewsModels>;
 
 @{
     ViewData["Title"] = "suaBaladaAqui";
@@ -116,7 +116,7 @@
                             </p>
                             <p class="fs-5 text-primary">
                                 Local: 
-                                <span class="text-dark">
+                                <span id="local" class="text-dark">
                                    @Html.DisplayFor(modelItem => evento.LocalName)
                                 </span>
                             </p>
@@ -125,5 +125,19 @@
                 </div>
            }
          </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-sm-12 bg-light bg-gradient">
+        <nav class="w-75 mx-auto">
+            <ul class="pagination justify-content-center">
+                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                <li class="page-item"><a class="page-link" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+            </ul>
+        </nav>
     </div>
 </div>

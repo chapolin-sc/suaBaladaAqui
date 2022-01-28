@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using suaBaladaAqui.Models;
+using suaBaladaAqui.ViewsModels;
 
 namespace suaBaladaAqui.Controllers
 {
@@ -14,9 +15,14 @@ namespace suaBaladaAqui.Controllers
 
         public async Task<ActionResult> Index()
         {
-            //Usuario user = new Usuario();
-            var user = await _context.Eventos.ToListAsync();
-            return View(user);
+            var query = (from evento in _context.Eventos
+                        where evento.DataEvento >= DateTime.Today
+                        //(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1)
+                        orderby evento.DataEvento
+                        select new boxBaladaViewsModels(evento.Evento1, evento.DataEvento.ToString("dd/MM"), evento.Cidade, 
+                        evento.LocalName, evento.Imagem ));
+
+            return View(await query.AsNoTracking().ToListAsync());
         }
     }
 }
