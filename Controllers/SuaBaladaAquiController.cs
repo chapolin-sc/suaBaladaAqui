@@ -7,14 +7,26 @@ namespace suaBaladaAqui.Controllers
 {
     public class SuaBaladaAquiController : Controller
     {
+        private int elementosPorPagina = 9; //valor contante
+        private int elementosIgnorados = 0;
+
         private readonly suaBaladaAquiContext _context;
 
         public SuaBaladaAquiController(suaBaladaAquiContext context){
             _context = context;
         }
 
-        public async Task<ActionResult> Index()
+        public async Task<ActionResult> Index(int? id)
         {
+        
+            ViewBag.paginaAtual = 0;
+
+             if (id != null)
+            {
+                ViewBag.paginaAtual = (int)(id - 1);
+                elementosIgnorados = (int)(elementosPorPagina * (id - 1));
+            }
+
             var query = (from evento in _context.Eventos
                         where evento.DataEvento >= DateTime.Today
                         //(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day + 1)
@@ -22,7 +34,22 @@ namespace suaBaladaAqui.Controllers
                         select new boxBaladaViewsModels(evento.Evento1, evento.DataEvento.ToString("dd/MM"), evento.Cidade, 
                         evento.LocalName, evento.Imagem ));
 
-            return View(await query.AsNoTracking().ToListAsync());
+            ViewBag.numeroBaladas = await _context.Eventos.CountAsync();
+            ViewBag.numeroPaginas = Math.Ceiling((double)ViewBag.numeroBaladas / (double)elementosPorPagina);
+                        
+
+            return View(await query.AsNoTracking().Skip(elementosIgnorados).Take(elementosPorPagina).ToListAsync());
         }
+
+        //public async Task<IActionResult> Pesquisa()
+       // {
+           // var usuariosModel = await _context.usuarios.FindAsync(id);
+            /*if (usuariosModel == null)
+            {
+                return NotFound();
+            }
+            return View(usuariosModel);*/
+        //}
+
     }
 }

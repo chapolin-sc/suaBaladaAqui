@@ -2,8 +2,11 @@
 
 @{
     ViewData["Title"] = "suaBaladaAqui";
+    var paginas = 0;
+    var ativo = "";
 }
 
+<!-- Corousel -->
 <div class="row">
     <div class="col-sm-12 position-relative">
         <div id="carouselSlides" class="carousel slide carousel-fade" data-bs-ride="carousel">
@@ -34,68 +37,27 @@
     </div>
 </div>
 
+<!-- Pesquisa -->
 <div class="row">
     <div class="col-sm-12 bg-light br-gradient">
-        <form action="" method="post" class="w-75 mx-auto py-3" >
+        <form action="Pesquisa" method="post" class="w-75 mx-auto py-3" >
             <div class="row g-3 align-items-center justify-content-evenly">
                 <div class="col-auto w-25">
                     <select class="form-select" aria-label="Default select example">
-                        <option value="0" selected>Pesquisar por Nome</option>
-                        <option value="1">Pesquisar por Cidade</option>
+                        <option value="Evento1" selected>Pesquisar por Nome</option>
+                        <option value="Cidade">Pesquisar por Cidade</option>
                     </select>
                 </div>
                 <div class="col-auto input-group w-25">
                    <input type="text" class="form-control" placeholder="" aria-label="" aria-describedby="button-addon2">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Pesquisar</button>
+                    <button type="submit" class="btn btn-outline-secondary" type="button">Pesquisar</button>
                 </div>
             </div>
         </form>
     </div>
 </div>
 
-
-<!--<div class="row justify-content-center">  
-    <div class="col-sm-12 py-5 w-75 bg-light bg-gradient">
-        (var i=0;i3;i++) {
-             <div class="row">
-                <div class="col-sm-4 text-center ">
-                    <figure class="figure foto-conteudo">
-                        <img src="~/img/img1.jpg" class="figure-img img-fluid rounded" alt="...">
-                        <figcaption class="figure-caption text-end">
-                            <span class="fs-6 badge rounded-pill bg-success">07/02</span>
-                            <h5 id="festa-nome" class="fs-4 mb-3 text-dark">Ladies Party Ladies Party</h5>
-                            <p id="cid" class="fs-6 text-muted mb-0">Criciuma</p>
-                            <p class="fs-5 text-primary">Local: <span class="text-dark">Casa de Pedra</span></p>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="col-sm-4 text-center">
-                    <figure class="figure foto-conteudo">
-                        <img src="~/img/img2.jpg" class="figure-img img-fluid rounded" alt="...">
-                        <figcaption class="figure-caption text-end">
-                            <span class="fs-6 badge rounded-pill bg-success">07/02</span>
-                            <h5 id="festa-nome" class="fs-4 mb-3 text-dark">Ladies Party Ladies Party</h5>
-                            <p id="cid" class="fs-6 text-muted mb-0">Criciuma</p>
-                            <p class="fs-5 text-primary">Local: <span class="text-dark">Casa de Pedra</span></p>
-                        </figcaption>
-                    </figure>
-                </div>
-                <div class="col-sm-4 text-center">
-                    <figure class="figure foto-conteudo">
-                        <img src="~/img/img3.jpg" class="figure-img img-fluid rounded" alt="...">
-                        <figcaption class="figure-caption text-end">
-                            <span class="fs-6 badge rounded-pill bg-success">07/02</span>
-                            <h5 id="festa-nome" class="fs-4 mb-3 text-dark">Ladies Party Ladies Party</h5>
-                            <p id="cid" class="fs-6 text-muted mb-0">Criciuma</p>
-                            <p class="fs-5 text-primary">Local: <span class="text-dark">Casa de Pedra</span></p>
-                        </figcaption>
-                    </figure>
-                </div>
-            </div>
-        }
-    </div>
-</div>-->
-
+<!-- Conteúdo -->
 <div class="row justify-content-center">  
     <div class="col-sm-12 py-5 w-75 bg-light bg-gradient">
         <div class="row row-cols-sm-3">
@@ -103,7 +65,10 @@
             {
                 <div class="col-sm text-center">
                     <figure class="figure foto-conteudo">
-                        <img src="@Html.DisplayFor(modelItem => evento.Imagem)" class="figure-img img-fluid rounded" alt="...">
+                        <a data-bs-toggle="modal" data-bs-target="#Model" 
+                        data-bs-target="#Modal" data-bs-whatever="@Html.DisplayFor(modelItem => evento.Imagem)">
+                            <img src="@Html.DisplayFor(modelItem => evento.Imagem)" class="figure-img img-fluid rounded" alt="...">
+                        </a>
                         <figcaption class="figure-caption text-end">
                             <span class="fs-6 badge rounded-pill bg-success">
                                 @Html.DisplayFor(modelItem => evento.DataEvento)
@@ -122,22 +87,53 @@
                             </p>
                         </figcaption>
                     </figure>
-                </div>
-           }
+                </div> 
+            }
          </div>
     </div>
 </div>
 
+<!-- Paginação -->
 <div class="row">
     <div class="col-sm-12 bg-light bg-gradient">
         <nav class="w-75 mx-auto">
             <ul class="pagination justify-content-center">
-                <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                @for(var pags=0; pags<ViewBag.numeroPaginas; pags++)
+                {
+                    paginas++;
+                    if(pags == ViewBag.paginaAtual)
+                    {
+                        ativo = "active";
+                    }else{
+                        ativo = "";
+                    }
+                    
+                    <li class="page-item @ativo">
+                        <a class="page-link" asp-controller="SuaBaladaAqui" asp-action="Index" asp-route-id="@paginas">
+                            @paginas
+                        </a>
+                    </li>
+                }
             </ul>
         </nav>
     </div>
 </div>
+
+<!-- Button trigger modal -->
+
+<!-- Modal -->
+@foreach (var evento in Model)
+{
+    <div class="modal fade" id="Model" tabindex="-1" aria-labelledby="ModalImg" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <img src="@Html.DisplayFor(modelItem => evento.Imagem)" class="w-100" alt="...">
+            </div>
+            </div>
+        </div>
+    </div>
+}

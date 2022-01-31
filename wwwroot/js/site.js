@@ -1,4 +1,11 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿
+// Possibilita um modal com conteúdo dinâmico, no caso para mostrar os flyer da festas.
+var exampleModal = document.getElementById('Model')
+    exampleModal.addEventListener('show.bs.modal', function (event) {
 
-// Write your JavaScript code.
+    var button = event.relatedTarget
+    var recipient = button.getAttribute('data-bs-whatever')
+    var modalBodyInput = exampleModal.querySelector('.modal-body img')
+
+    modalBodyInput.setAttribute('src', recipient)
+})
