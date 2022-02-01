@@ -41,15 +41,24 @@ namespace suaBaladaAqui.Controllers
             return View(await query.AsNoTracking().Skip(elementosIgnorados).Take(elementosPorPagina).ToListAsync());
         }
 
-        //public async Task<IActionResult> Pesquisa()
-       // {
-           // var usuariosModel = await _context.usuarios.FindAsync(id);
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Pesquisa([Bind("tipo")] string _tipo)
+        {
+
+            var tipo = "";
+             if (ModelState.IsValid)
+             {
+                 tipo = _tipo;
+             }
             /*if (usuariosModel == null)
             {
                 return NotFound();
-            }
-            return View(usuariosModel);*/
-        //}
+            }*/
+            
+            return View();
+        }
 
     }
 }
